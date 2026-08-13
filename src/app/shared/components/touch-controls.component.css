@@ -1,0 +1,139 @@
+:host {
+  display: contents;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :host { display: none !important; }
+}
+
+/* D-Pad Zone */
+.tc-dpad-zone {
+  grid-area: dpad;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.dpad {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+
+.dpad-btn {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  background: var(--surface-1);
+  border: 4px solid var(--border);
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: inset -2px -2px 0px rgba(0,0,0,0.5);
+  transition: background 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.dpad-btn:active {
+  background: var(--cyan); color: var(--black);
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.5);
+  transform: scale(0.96);
+}
+
+.up { top: 0; left: 43px; border-bottom: none; }
+.down { bottom: 0; left: 43px; border-top: none; }
+.left { left: 0; top: 43px; border-right: none; }
+.right { right: 0; top: 43px; border-left: none; }
+
+.dpad-center {
+  position: absolute;
+  top: 43px; left: 43px;
+  width: 44px; height: 44px;
+  background: var(--surface-1);
+  border: 4px solid var(--border);
+  border-top: none; border-bottom: none; border-left: none; border-right: none;
+}
+
+/* Action Buttons Zone */
+.tc-action-zone {
+  grid-area: action;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.action-btns {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-end;
+  height: 100px;
+}
+
+.action-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--magenta);
+  border: 4px solid var(--black);
+  box-shadow: 4px 4px 0px rgba(0,0,0,1), 0 0 0 4px var(--magenta);
+  color: var(--black);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4px;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.action-btn:active {
+  transform: scale(0.96) translate(2px, 2px);
+  box-shadow: 0 0 0 rgba(0,0,0,1), 0 0 0 4px var(--magenta);
+}
+
+.btn-b { margin-bottom: 0; }
+.btn-a { margin-bottom: 36px; }
+
+/* Start/Select Zone */
+.tc-center-zone {
+  grid-area: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+}
+
+.center-btns {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.sys-btn {
+  background: var(--surface-1);
+  border: 4px solid var(--border);
+  padding: 8px 20px;
+  box-shadow: 4px 4px 0px rgba(0,0,0,1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: skew(-10deg);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.sys-btn span {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.5rem;
+  color: var(--yellow);
+  transform: skew(10deg);
+}
+
+.sys-btn:active {
+  transform: skew(-10deg) scale(0.96) translate(2px, 2px);
+  box-shadow: 0 0 0px rgba(0,0,0,1);
+}

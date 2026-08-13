@@ -1,0 +1,30 @@
+.games-page { padding-bottom: var(--space-20); }
+.games-header {
+  padding: calc(var(--nav-height) + var(--space-6)) 0 var(--space-4);
+  border-bottom: 2px solid var(--border);
+  background: var(--surface-1);
+  margin-bottom: var(--space-4);
+}
+
+.games-header h1 { margin-bottom: var(--space-2); }
+.search-bar { position: relative; margin-bottom: var(--space-4); }
+.search-icon {
+  position: absolute; left: var(--space-4); top: 50%; transform: translateY(-50%);
+  color: var(--cyan); pointer-events: none;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+}
+.search-input { padding-left: calc(var(--space-4) * 2 + 16px); }
+
+.genre-chips { margin-top: var(--space-4); }
+
+.games-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+.load-more { text-align: center; margin-top: var(--space-12); }
+
+@media (max-width: 1024px) {
+  .games-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .games-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+}
+@media (max-width: 480px)  { .games-grid { grid-template-columns: repeat(2,1fr); gap: var(--space-3); } }

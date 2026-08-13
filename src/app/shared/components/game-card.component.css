@@ -1,0 +1,61 @@
+.game-card {
+  background: var(--surface-1);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-none);
+  overflow: hidden;
+  transition: all var(--dur-fast);
+  display: flex; flex-direction: column;
+  height: 100%;
+}
+.game-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-cyan);
+  border-color: var(--cyan);
+}
+.card-img-wrap {
+  position: relative; overflow: hidden;
+  aspect-ratio: 3/2; display: block;
+  background: var(--surface-0);
+  border-bottom: 2px solid var(--border);
+}
+.game-card:hover .card-img-wrap { border-color: var(--cyan); }
+.card-img {
+  width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated;
+  transition: transform var(--dur-fast);
+}
+.game-card:hover .card-img { filter: brightness(0.5); }
+.card-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity var(--dur-fast);
+}
+.game-card:hover .card-overlay { opacity: 1; }
+.card-body { padding: var(--space-3); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+.card-meta { display: flex; align-items: center; justify-content: space-between; }
+.genre-tag {
+  font-family: 'Press Start 2P', cursive; font-size: 0.45rem;
+  color: var(--magenta); border: 1px solid var(--magenta); padding: 4px 6px;
+  background: rgba(255, 0, 60, 0.1);
+}
+.card-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.65rem; color: var(--text-primary);
+  line-height: 1.5;
+  transition: color var(--dur-fast);
+  margin: var(--space-2) 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-title:hover { color: var(--cyan); }
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.developer-name {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px;
+}
+.fav-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 1.25rem; color: var(--text-muted);
+  transition: color var(--dur-fast), transform var(--dur-fast);
+  padding: 0; display: flex; align-items: center;
+}
+.fav-btn:hover { transform: scale(1.2); color: var(--text-primary); }
+.fav-btn .active { color: var(--magenta); text-shadow: 0 0 8px var(--magenta); }

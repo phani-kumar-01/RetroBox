@@ -1,0 +1,324 @@
+/* ============================================================
+   RetroBox Global Styles - Arcade Theme
+   — composes all partials
+   ============================================================ */
+
+@import './styles/reset.css';
+@import './styles/tokens.css';
+@import './styles/typography.css';
+@import './styles/animations.css';
+@import './styles/utilities.css';
+
+/* ── Ambient background glow (hero effect) ── */
+.ambient-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.ambient-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 30%, var(--cyan-glow) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 80% 70%, var(--magenta-glow) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Dot-grid texture ── */
+.dot-grid {
+  background-image: radial-gradient(square, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 10px var(--space-5);
+  border-radius: var(--radius-none);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all var(--dur-fast) var(--ease);
+  white-space: nowrap;
+  cursor: pointer;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-none);
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: var(--black);
+  border-color: var(--black);
+}
+
+.btn-primary:hover {
+  background: #FFF000;
+  box-shadow: var(--shadow-cyan);
+}
+
+.btn-secondary {
+  background: var(--surface-1);
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.btn-secondary:hover {
+  background: var(--cyan);
+  color: var(--black);
+  box-shadow: var(--shadow-magenta);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  color: var(--yellow);
+  background: var(--surface-2);
+  border-color: var(--yellow);
+}
+
+.btn-danger {
+  background: var(--surface-1);
+  color: var(--magenta);
+  border-color: var(--magenta);
+}
+
+.btn-danger:hover {
+  background: var(--magenta);
+  color: var(--white);
+  box-shadow: var(--shadow-cyan);
+}
+
+.btn-sm {
+  padding: 6px var(--space-3);
+  font-size: 0.5rem;
+}
+
+.btn-lg {
+  padding: 14px var(--space-8);
+  font-size: 0.8rem;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--surface-1);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-none);
+  overflow: hidden;
+  transition: all var(--dur-fast) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-cyan);
+  border-color: var(--cyan);
+}
+
+/* ── Input ── */
+.input {
+  width: 100%;
+  padding: 10px var(--space-4);
+  background: var(--black);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-none);
+  color: var(--cyan);
+  font-family: 'VT323', monospace;
+  font-size: 1.25rem;
+  transition: all var(--dur-fast);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 4px 4px 0px var(--magenta);
+}
+
+/* ── Section labels ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.section-label h2 {
+  font-size: 1rem;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0px rgba(0,0,0,1);
+}
+
+/* ── Loading dots ── */
+.loading-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--cyan);
+  animation: dotPulse 1.4s infinite steps(2);
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.32s; }
+
+/* ── Scrollable row ── */
+.scroll-row {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  scrollbar-width: none;
+}
+
+.scroll-row::-webkit-scrollbar { display: none; }
+
+/* ── Page wrapper ── */
+.page-wrapper {
+  min-height: 100dvh;
+  padding-top: var(--nav-height);
+}
+
+/* ── Chip filter buttons ── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-none);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.55rem;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+  text-transform: uppercase;
+}
+
+.chip:hover {
+  background: var(--surface-3);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: var(--shadow-sm);
+}
+
+.chip.active {
+  background: var(--magenta);
+  border-color: var(--magenta);
+  color: #fff;
+  box-shadow: var(--shadow-cyan);
+}
+
+/* ── Empty state ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-20) var(--space-6);
+  text-align: center;
+}
+
+.empty-state .empty-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--yellow);
+  font-size: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+/* ── CRT overlay ── */
+.crt-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  z-index: 10;
+}
+
+/* ── Controls reference table ── */
+.controls-table {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2) var(--space-4);
+  font-size: 1.1rem;
+}
+
+.controls-table .key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 28px;
+  padding: 0 8px;
+  background: var(--black);
+  border: 2px solid var(--text-secondary);
+  border-bottom: 4px solid var(--text-secondary);
+  font-size: 0.9rem;
+  font-family: 'Press Start 2P', cursive;
+  color: var(--cyan);
+}
+
+.controls-table .action {
+  color: var(--text-primary);
+  align-self: center;
+  text-transform: uppercase;
+}
+
+/* ── Volume slider ── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--surface-3);
+  border: 2px solid var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 20px;
+  background: var(--cyan);
+  border: 2px solid var(--black);
+  cursor: pointer;
+}

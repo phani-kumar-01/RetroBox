@@ -1,0 +1,94 @@
+.hero {
+  display: flex; align-items: center;
+  padding: calc(var(--nav-height) + var(--space-8)) 0 var(--space-12);
+  border-bottom: 4px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-6); align-items: center;
+}
+.hero-eyebrow { margin-bottom: var(--space-6); }
+.hero-eyebrow .badge { 
+  font-family: 'Press Start 2P', cursive; font-size: 0.5rem; 
+  padding: 6px 12px; border: 2px solid var(--cyan); color: var(--cyan);
+  box-shadow: var(--shadow-sm);
+}
+.text-hero { margin-bottom: var(--space-6); text-shadow: 4px 4px 0px rgba(0,0,0,1); }
+.hero-sub { font-size: 1.125rem; max-width: 480px; margin-bottom: var(--space-8); }
+.hero-actions { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+
+.hero-art { display: flex; justify-content: center; position: relative; z-index: 10; margin-top: 40px; }
+.arcade-cabinet {
+  position: relative; border-radius: var(--radius-sm);
+  width: 100%; max-width: 400px;
+  background: var(--surface-0);
+  border: 4px solid var(--cyan);
+  box-shadow: 0 0 30px rgba(0,240,255,0.2), inset 0 0 40px rgba(0,240,255,0.1);
+  padding: 4px;
+}
+.arcade-screen {
+  width: 100%; aspect-ratio: 4/3; background: #000;
+  border: 4px solid var(--surface-2); border-radius: 4px;
+  overflow: hidden; position: relative;
+}
+.arcade-screen::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(rgba(255,255,255,0.05) 50%, transparent 50%);
+  background-size: 100% 4px; pointer-events: none;
+}
+.hero-cover { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+
+.arcade-panel {
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  text-align: center;
+}
+.arcade-label { font-family: 'Press Start 2P', cursive; font-size: 0.5rem; color: var(--magenta); display: block; margin-bottom: 8px; }
+.arcade-title { font-family: 'VT323', monospace; font-size: 1.8rem; color: var(--white); margin-bottom: 12px; }
+.arcade-play-btn {
+  display: inline-block; font-family: 'Press Start 2P', cursive; font-size: 0.6rem;
+  color: var(--green); transition: all var(--dur-fast);
+}
+.arcade-play-btn:hover { color: var(--yellow); text-shadow: 0 0 10px var(--yellow); }
+
+.pixel-ground {
+  position: absolute; bottom: -80px; left: -100px; right: -100px; height: 120px;
+  background-image: linear-gradient(90deg, #3E2723 50%, #4E342E 50%);
+  background-size: 40px 40px;
+  border-top: 4px solid #795548;
+  z-index: -1;
+  opacity: 0.8;
+}
+.pixel-ground::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 12px;
+  background-image: linear-gradient(90deg, #4CAF50 50%, #81C784 50%);
+  background-size: 32px 12px;
+}
+.pixel-palm {
+  position: absolute; bottom: -20px; font-size: 4rem; z-index: -1;
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,1));
+}
+.pixel-palm.left { left: -40px; }
+.pixel-palm.right { right: -40px; transform: scaleX(-1); }
+
+.section { padding: var(--space-8) 0; }
+.games-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
+
+.load-rom-card {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-8);
+  padding: var(--space-10) var(--space-12);
+  background: var(--surface-1);
+  border: 4px solid var(--magenta);
+  box-shadow: 8px 8px 0px rgba(0,0,0,1);
+}
+.load-rom-card h2 { font-size: 1.5rem; margin-bottom: var(--space-2); color: var(--cyan); }
+
+@media (max-width: 1024px) {
+  .games-grid { grid-template-columns: repeat(3,1fr); }
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero-actions { justify-content: center; }
+  .pixel-ground, .pixel-palm { display: none; }
+}
+@media (max-width: 768px) {
+  .games-grid { grid-template-columns: repeat(2,1fr); gap: var(--space-4); }
+  .load-rom-card { flex-direction: column; text-align: center; padding: var(--space-8); }
+}

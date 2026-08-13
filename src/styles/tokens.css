@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Design Tokens - Arcade Theme
+   ========================================================================== */
+
+:root {
+  /* ── Color Palette ── */
+  --navy: #090B10;
+  --black: #000000;
+  --cyan: #00F0FF;
+  --cyan-glow: rgba(0, 240, 255, 0.4);
+  --magenta: #FF003C;
+  --magenta-glow: rgba(255, 0, 60, 0.4);
+  --yellow: #FFD700;
+  --yellow-glow: rgba(255, 215, 0, 0.3);
+  --green: #00FF41;
+  
+  /* Surfaces */
+  --surface-0: var(--black);
+  --surface-1: var(--navy);
+  --surface-2: #121826;
+  --surface-3: #1A2235;
+
+  /* Typography Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0B2C6;
+  --text-muted: #5C6E8A;
+
+  /* Borders */
+  --border: #1A2235;
+  --border-active: var(--cyan);
+  
+  /* ── Spacing (8/12/16/24/32/48/64/80) ── */
+  --space-2: 0.5rem;   /* 8px  */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+
+  /* ── Borders & Radiuses ── */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-full: 0px;
+
+  /* ── Shadows (Pixel Art Style) ── */
+  --shadow-none: none;
+  --shadow-sm: 2px 2px 0px rgba(0,0,0,0.5);
+  --shadow-md: 4px 4px 0px rgba(0,0,0,0.8);
+  --shadow-lg: 8px 8px 0px rgba(0,0,0,1);
+  --shadow-cyan: 4px 4px 0px var(--cyan);
+  --shadow-magenta: 4px 4px 0px var(--magenta);
+  --shadow-yellow: 4px 4px 0px var(--yellow);
+
+  /* ── Animation & Timing ── */
+  --dur-fast: 100ms;
+  --dur-normal: 200ms;
+  --dur-slow: 400ms;
+  --ease: cubic-bezier(0, 0, 0, 1); /* Linear/snappy for arcade feel */
+
+  /* ── Layout ── */
+  --nav-height: 64px;
+}

@@ -1,0 +1,66 @@
+<div *ngIf="notFound()" class="empty-state" style="padding-top:120px">
+  <div class="empty-icon">🕹️</div>
+  <p class="text-heading">GAME NOT FOUND</p>
+  <a routerLink="/games" class="btn btn-primary">◀ BACK TO GAMES</a>
+</div>
+
+<div *ngIf="game() as g" class="details-page animate-fade-in">
+  <div class="container" style="padding-top: var(--space-4); margin-bottom: var(--space-4);">
+    <a routerLink="/games" class="back-link">◀ BACK TO GAMES</a>
+  </div>
+
+  <div class="container details-inner">
+    <div class="details-left">
+      <div class="details-cover-wrap">
+        <img [src]="g.coverImage" [alt]="g.title" class="cover-img" />
+      </div>
+      <div class="controls-section">
+        <h2 class="controls-title">🎮 CONTROLS</h2>
+        <div class="controls-table">
+          <span class="key">←↑↓→</span><span class="action">MOVE</span>
+          <span class="key">Z</span><span class="action">B BUTTON</span>
+          <span class="key">X</span><span class="action">A BUTTON</span>
+          <span class="key">ENTER</span><span class="action">START</span>
+          <span class="key">SHIFT</span><span class="action">SELECT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-right">
+      <h1 class="details-title">{{g.title}}</h1>
+      <div class="details-badges">
+        <span class="genre-tag">{{g.genre}}</span>
+        <span class="genre-tag tag-outline">{{g.releaseYear}}</span>
+        <span class="genre-tag tag-outline">{{g.players}} PLAYERS</span>
+      </div>
+      
+      <p class="details-dev">BY {{g.developer | uppercase}}</p>
+      
+      <p class="details-desc">{{g.description}}</p>
+      
+      <div class="details-meta">
+        <div class="meta-row"><span class="meta-icon">👥</span><span class="meta-label">PLAYERS:</span><span class="meta-val">{{g.players}}</span></div>
+        <div class="meta-row"><span class="meta-icon">🗂</span><span class="meta-label">GENRE:</span><span class="meta-val">{{g.genre | uppercase}}</span></div>
+        <div class="meta-row"><span class="meta-icon">🕒</span><span class="meta-label">RELEASED:</span><span class="meta-val">{{g.releaseYear}}</span></div>
+        <div class="meta-row"><span class="meta-icon">🏢</span><span class="meta-label">PUBLISHER:</span><span class="meta-val">{{g.publisher | uppercase}}</span></div>
+        <div class="meta-row"><span class="meta-icon">📜</span><span class="meta-label">LICENSE:</span><span class="meta-val">{{g.license | uppercase}}</span></div>
+      </div>
+      
+      <div class="details-actions">
+        <a [routerLink]="['/play', g.id]" class="btn btn-primary play-btn-huge">PLAY NOW ▶</a>
+        <button class="fav-btn-action" (click)="toggleFav()" [class.active]="isFav()">
+          {{isFav() ? '♥ REMOVE FAVORITE' : '♡ ADD TO FAVORITES'}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: var(--space-8);" *ngIf="related().length > 0">
+    <div class="section-label">
+      <h2>MORE {{g.genre | uppercase}} GAMES</h2>
+    </div>
+    <div class="related-grid">
+      <app-game-card *ngFor="let r of related()" [game]="r" />
+    </div>
+  </div>
+</div>

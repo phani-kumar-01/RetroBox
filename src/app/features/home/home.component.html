@@ -1,0 +1,63 @@
+<section class="hero ambient-bg dot-grid">
+  <div class="container hero-inner">
+    <div class="hero-text animate-fade-in-up">
+      <p class="hero-eyebrow"><span class="badge">82 HOMEBREW NES GAMES</span></p>
+      <h1 class="text-hero">YOUR CLASSICS.<br><span class="text-gradient">YOUR WAY.</span></h1>
+      <p class="hero-sub text-secondary">Play legally-free NES homebrew games directly in your browser. No install. No account. Just play.</p>
+      <div class="hero-actions">
+        <a routerLink="/games" class="btn btn-primary btn-lg">BROWSE GAMES ▶</a>
+        <a routerLink="/play/local" class="btn btn-secondary btn-lg">LOAD YOUR ROM ⍐</a>
+      </div>
+    </div>
+    
+    <div class="hero-art animate-fade-in-scale" *ngIf="featured()">
+      <div class="arcade-cabinet">
+        <div class="arcade-screen">
+          <img [src]="featured()!.coverImage" [alt]="featured()!.title" class="hero-cover" />
+        </div>
+        <div class="arcade-panel">
+          <span class="arcade-label">FEATURED GAME</span>
+          <h3 class="arcade-title">{{featured()!.title}}</h3>
+          <a [routerLink]="['/play', featured()!.id]" class="arcade-play-btn">♡ PLAY NOW</a>
+        </div>
+      </div>
+      <!-- Pixel art scenery elements -->
+      <div class="pixel-palm left">🌴</div>
+      <div class="pixel-palm right">🌴</div>
+      <div class="pixel-ground"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" *ngIf="recent().length > 0">
+  <div class="container">
+    <div class="section-label"><h2>CONTINUE PLAYING</h2></div>
+    <div class="scroll-row">
+      <app-game-card *ngFor="let g of recent()" [game]="g" style="min-width:240px;flex-shrink:0" />
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <h2>POPULAR GAMES</h2>
+      <a routerLink="/games" class="btn btn-ghost btn-sm" style="font-size:0.6rem">VIEW ALL ▶</a>
+    </div>
+    <div class="games-grid">
+      <app-game-card *ngFor="let g of popular(); let i = index" [game]="g" [class]="'stagger-' + ((i % 8) + 1)" class="animate-fade-in" />
+    </div>
+  </div>
+</section>
+
+<section class="section load-rom-section">
+  <div class="container">
+    <div class="load-rom-card">
+      <div class="load-rom-text">
+        <h2>INSERT ROM.</h2>
+        <p class="text-secondary">Load any legally-obtained NES ROM from your computer. It stays in your browser — never uploaded.</p>
+      </div>
+      <a routerLink="/play/local" class="btn btn-primary btn-lg">📂 LOAD ROM FILE</a>
+    </div>
+  </div>
+</section>

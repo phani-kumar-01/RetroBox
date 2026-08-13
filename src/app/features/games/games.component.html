@@ -1,0 +1,37 @@
+<div class="games-page">
+  <div class="games-header">
+    <div class="container">
+      <h1 class="text-display" style="font-family:'Press Start 2P', cursive; color:var(--white);">GAME LIBRARY</h1>
+      <p class="text-secondary" style="font-family:'Press Start 2P', cursive; font-size: 0.6rem; color:var(--cyan); margin-top:8px; margin-bottom:var(--space-6);">{{results().length}} HOMEBREW GAMES — ALL FREE, ALL LEGAL</p>
+
+      <div class="search-bar">
+        <span class="search-icon">▶</span>
+        <input class="input search-input" type="search" placeholder="SEARCH GAMES..."
+               [(ngModel)]="query" (ngModelChange)="search()" [ngModel]="query()" />
+      </div>
+
+      <div class="genre-chips scroll-row">
+        <button *ngFor="let g of genres()" class="chip" [class.active]="genre() === g" (click)="setGenre(g)">{{g}}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="games-grid" *ngIf="results().length; else empty">
+      <app-game-card *ngFor="let g of paged" [game]="g" />
+    </div>
+
+    <div class="load-more" *ngIf="hasMore">
+      <button class="btn btn-secondary" (click)="loadMore()">Load More</button>
+    </div>
+
+    <ng-template #empty>
+      <div class="empty-state">
+        <div class="empty-icon">🎮</div>
+        <p class="text-heading">No games found</p>
+        <p class="text-secondary">Try a different search or filter.</p>
+        <button class="btn btn-ghost" (click)="query.set(''); setGenre('All')">Clear filters</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="player-page">
+  <!-- Header (hidden in fullscreen) -->
+  <div class="player-header" *ngIf="!isFullscreen()">
+    <a [routerLink]="game() ? ['/games', game()!.id] : '/games'" class="btn btn-ghost btn-sm" style="font-family:'Press Start 2P', cursive; font-size:0.5rem; color:var(--cyan)">◀ {{game()?.title ?? 'GAMES'}}</a>
+    <span class="player-title" (dblclick)="togglePerf()" title="Double-click for Performance Stats" style="font-family:'Press Start 2P', cursive; font-size:0.6rem; color:var(--yellow); cursor: help;">{{isLocal() ? 'LOCAL ROM' : (game()?.title ?? '') | uppercase}}</span>
+    <button class="btn btn-ghost btn-sm" (click)="toggleFullscreen()" aria-label="Fullscreen" style="font-size:0.8rem; color:var(--cyan)">⛶</button>
+  </div>
+
+  <!-- UNIFIED PLAYER SHELL -->
+  <main class="player-shell" #playerShell [class.is-fullscreen]="isFullscreen()">
+    
+    <!-- Local ROM picker -->
+    <div class="local-picker" *ngIf="isLocal() && emu.state() === 'idle'">
+      <div class="picker-card">
+        <div style="font-size:3rem">📂</div>
+        <h2 style="font-family:'Press Start 2P', cursive; font-size:1.2rem; color:var(--cyan); margin-bottom:var(--space-2)">INSERT ROM</h2>
+        <p class="text-secondary" style="font-family:'VT323', monospace; font-size:1.2rem; text-transform:uppercase">Select a .nes file from your computer. It stays local — never uploaded.</p>
+        <label class="btn btn-primary btn-lg" style="cursor:pointer; margin-top:var(--space-4)">
+          CHOOSE .NES FILE
+          <input type="file" accept=".nes" style="display:none" (change)="loadLocalRom($event)" />
+        </label>
+      </div>
+    </div>
+
+    <!-- Game Stage (Canvas + Mobile Touch Controls) -->
+    <div class="player-stage" [style.display]="(isLocal() && emu.state() === 'idle') ? 'none' : ''">
+      
+      <!-- Perf Overlay -->
+      <div class="perf-stats" *ngIf="showPerf()">
+        <div>FPS: {{emu.perfFPS()}}</div>
+        <div>Frame Time: {{emu.perfFrameTime() | number:'1.1-1'}}ms</div>
+        <div>Emulator: {{emu.perfEmuTime() | number:'1.1-1'}}ms</div>
+        <div>Render: {{emu.perfRenderTime() | number:'1.1-1'}}ms</div>
+        <div>Audio: {{emu.perfAudioTime() | number:'1.1-1'}}ms</div>
+        <div [style.color]="emu.perfDropped() > 0 ? 'var(--magenta)' : 'inherit'">Dropped: {{emu.perfDropped()}}</div>
+      </div>
+      
+      <div class="game-area" #gameArea [style.width]="'var(--game-width, 100%)'" [style.height]="'var(--game-height, 100%)'">
+        <canvas #gameCanvas class="game-canvas" [class.hidden]="emu.state() === 'error'"></canvas>
+
+        <!-- Loading overlay -->
+        <div class="player-overlay" *ngIf="emu.state() === 'loading'">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <p class="text-secondary" style="margin-top:var(--space-3); font-family:'Press Start 2P', cursive; font-size:0.6rem;">LOADING EMULATOR...</p>
+        </div>
+
+        <!-- Error overlay -->
+        <div class="player-overlay error" *ngIf="emu.state() === 'error'">
+          <p style="font-size:2rem">⚠️</p>
+          <p class="text-heading" style="font-family:'Press Start 2P', cursive; font-size:1rem; color:var(--magenta)">FAILED TO LOAD GAME</p>
+          <p class="text-secondary" style="font-family:'VT323', monospace; font-size:1.2rem; text-transform:uppercase;">{{emu.errorMessage()}}</p>
+          <button class="btn btn-primary" (click)="startGame()" *ngIf="!isLocal()" style="margin-top:var(--space-4)">TRY AGAIN</button>
+        </div>
+
+        <!-- CRT scanlines -->
+        <div class="crt-overlay" *ngIf="showCrt()"></div>
+      </div>
+
+      <!-- Touch Controls -->
+      <app-touch-controls *ngIf="emu.state() === 'running' || emu.state() === 'paused'" class="touch-controls-host"></app-touch-controls>
+    </div>
+
+    <!-- Toolbar (always exists in shell, but fades in fullscreen) -->
+    <div class="player-toolbar" [class.faded]="toolbarFaded()" *ngIf="emu.state() !== 'idle' || !isLocal()">
+      <div class="controls-left">
+        <button class="ctrl-btn" (click)="togglePause()" [disabled]="emu.state() === 'loading' || emu.state() === 'error'" [attr.aria-label]="pauseLabel">
+          {{emu.state() === 'paused' ? '▶' : '⏸'}}
+        </button>
+        <button class="ctrl-btn" (click)="reset()" [disabled]="emu.state() === 'idle' || emu.state() === 'loading'" aria-label="Reset">↻</button>
+      </div>
+
+      <div class="volume-wrap">
+        <span style="font-size:1rem; color:var(--cyan)">🔊</span>
+        <input type="range" min="0" max="100" [value]="volume()" (input)="setVolume(+($any($event.target).value))" style="width:120px" />
+      </div>
+
+      <div class="controls-right">
+        <button class="ctrl-btn" (click)="showCrt.set(!showCrt())" [class.active]="showCrt()" aria-label="CRT Effect" title="CRT Effect">📺</button>
+        <button class="ctrl-btn" (click)="toggleFullscreen()" aria-label="Fullscreen">⛶</button>
+      </div>
+    </div>
+
+    <!-- Keyboard guide (hidden on mobile, hidden in fullscreen) -->
+    <div class="keyboard-guide" *ngIf="!isFullscreen() && (emu.state() === 'running' || emu.state() === 'paused')">
+      <div class="controls-table" style="display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-6);">
+        <div><span class="key">←↑↓→</span><span class="action">MOVE</span></div>
+        <div><span class="key">Z</span><span class="action">B BUTTON</span></div>
+        <div><span class="key">X</span><span class="action">A BUTTON</span></div>
+        <div><span class="key">ENTER</span><span class="action">START</span></div>
+        <div><span class="key">SHIFT</span><span class="action">SELECT</span></div>
+      </div>
+    </div>
+
+  </main>
+</div>
